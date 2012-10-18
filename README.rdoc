@@ -1,0 +1,121 @@
+Tired of seeing this screen.
+
+https://dl.dropbox.com/u/22136966/500-error.png
+
+= The Problem
+
+It is just a static file. So if you have the time you can craft a
+(cute error message)[http://application.blinksale.com/404.html]. But
+you are pumping through applications and you don't have time to provide
+a custom error for each app. So you leave the default. It is jarring as
+it doesn't fit with the the site you have created. Wouldn't it be great
+if these errors just used the layout like everything else? This way if
+fits with your application without any extra effort.
+
+= The Solution
+
+Install this gem and your error are rendered like any other action
+in your application using the full Rails infrastructure including
+layout! You end up with less static files, less copy and pasting and
+a more seemless experience for your end user.
+
+= Installation
+
+# Add "gem 'better_exception_app'" to your Gemfile
+# Run "bundle install"
+# Delete public/404.html, public/422.html and public/500.html
+
+= What if my layout generates an error?
+
+Errors in the 4xx range (404 for example) can assume dynamic generation
+of the error page is safe. These errors are client errors and imply
+nothing is wrong with the server.
+
+Even most error in the 5xx range is safe as the error is confined to a
+specific issue on the server. The exception to this is a 500 error. This
+is a generic error and it could mean things are so borked that even the
+error page won't render right. So although you *can* have a 500 error
+dynamically render, to be safer you might want to still have this as
+a static file. But that doesn't mean you can't take advantage of your
+layout! When things are working just run:
+
+    rails g better_exception_app:static_error_page internal_server_error
+
+This will generate a static file that will be served up in the event of
+a 500 error but the static file will be generated using your layout
+(which is working at the moment). Re-generate periodically to keep in
+sync with the dynamic layout.
+
+= Static Files
+
+The generator makes it obvious that the static files still work. In fact
+you can use the generator to generate static copies of all your common
+error codes. You might want to do this for better performance of those
+error pages. Or maybe you need a static file for another system (like
+Apache).
+
+We have in fact enhanced the static files in two ways:
+
+* Since there are a lot of HTTP status codes (especially if you start
+  providing locale specific versions), you can now place them all in
+  the public/errors directory to keep them grouped. The public/
+  directory is still supported for backwards compatability.
+* Naming the files 404.html, 422.html, 500.html, etc can be a bit
+  cryptic. So we also support naming them by their HTTP name. So you
+  can use not_found.html, internal_server_error.html, etc. Of course
+  the number format is still supported if you prefer that. In fact our
+  generator can do both (make the final argument a number and it will
+  generate the file as a number).
+
+= Locale Specific Errors
+
+Rails already supported locale specific error messages by naming the
+file after the locale requested. So for example 500.en.html. We have
+extended that support by integrating with the i18n API. This means
+all error messages are stored in locale.yml files. The provides two
+nice features:
+
+* We can add new languagues with time. Then apps using them gem will
+  be able to provide locale-specific error responses with no work.
+* If you don't like a pre-packaged error message you can easily override
+  in your own locale files.
+
+= A Bit of Background
+
+In old versions of Rails there was a mismatch of things to help you
+customize and deliver pretty error messages (rescue_action_in_public,
+rescue_from, etc.).
+
+Rails 3 made this even messier by moving some stuff up to the Rack layer
+making it more effort to catch some errors (routing errors, etc.).
+
+Rails 3.2 finally brought an end to this madness by allowing an
+application to define a Rack application which will handle errors. This
+application can examine both the HTTP status and the actual exception
+to determine the best UI to present. It even included
+[a default app](https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/public_exceptions.rb)
+that reproduced the historical behavior of Rails.
+
+This default app is pretty simple. It only looks at the HTTP status
+and not the exception. The exceptions are converted to a HTTP status
+through a fairly simple workflow:
+
+* Gems (including core ones like ActiveRecord) register exception
+  classes, such as
+  [ActiveRecord::RecordNotFound](https://github.com/rails/rails/blob/master/activerecord/lib/active_record/railtie.rb#L25)
+  with
+  [config.action_dispatch.rescue_responses](https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/exception_wrapper.rb)
+  to map an exception to a HTTP symbol.
+* The HTTP symbols are
+  [defined by rack](https://github.com/rack/rack/blob/master/lib/rack/utils.rb#L473)
+  to produce the final number.
+
+The default app just looks at the resulting number and reads the file
+by the same name (possibly taking localization and format requested into
+account). So while useful at emulating the old behavior (i.e. deliver
+files called 404.html, 422.html and 500.html under public/) it is
+somewhat incomplete (other status codes are not convered) and doesn't
+take full advantage of the new infastructure.
+
+This gem uses the new functionality in Rails 3.2 to take it to the
+next level.

@@ -1,0 +1,58 @@
+en:
+  http:
+    status:
+
+      # The goal here is to provide error descriptions that make sense
+      # to the end user. This means we use terms like "web browser"
+      # instead of "client" and "page" instead of "resource". Of course
+      # this makes the errors less technically correct but more friendly.
+      #
+      # Error messages are most useful when they are specific to the
+      # issue at hand and understandable by the person receiving the
+      # message. It is questionable if sending generic errors like the
+      # HTTP spec provides is meaningful at all to give to an end user.
+      # So try to give specific purpose-related errors if you can. But
+      # if you must throw a more generic HTTP error (or are using a
+      # library that is doing it for you) then we should try to have
+      # error messages that mean something to the user receiving them.
+      #
+      # We only provide status messages for codes in the 4xx range and
+      # and 5xx range (and even then status codes not likely used,
+      # like 407, do not have descriptions by default). Status codes in
+      # the 1xx, 2xx and 3xx range are not triggered via an exception
+      # (unless your app has programmed it).
+      description:
+        bad_request: Your web browser made a request our website did not understand.
+        unauthorized: Your login is incorrect or has not been provided.
+        payment_required: A payment is required to carry out this action or view this page.
+        forbidden: You do not have permission to view this page.
+        not_found: The page requested could not be found.
+        method_not_allowed: This website is not configured to carry out the action you requested.
+        not_acceptable: This website is not configured to handle the format you requested.
+        request_timeout: Our server timed out waiting for your full request.
+        conflict: Your requested action conflicts with an action taken by some other process or request.
+        gone: The page you requested has been permenantly removed.
+        length_required: You request did not include the length desired.
+        precondition_failed: A pre-condition of your request has not been met.
+        request_entity_too_large: The size of your request exceeds what this server is configured to handle.
+        request_uri_too_long: The URL for the page you requested exceeds the length this server is configured to handle.
+        unsupported_media_type: Your request was in a format this server is not configured to handle.
+        requested_range_not_satisfiable: The portion of the file you requested is not valid.
+        expectation_failed: The requirements set by your request cannot be satisified.
+        unprocessable_entity: Your request did not make sense to our server.
+        locked: The page you requested has been locked.
+        failed_dependency: A previous request has caused this request to fail.
+        upgrade_required: Your web browser is not compatible with our server.
+        precondition_required: Your request is subject to a pre-condition which has not been met.
+        too_many_requests: Your web browser has made too many requests recently.
+        request_header_fields_too_large: The size of your request exceeds what this server is configured to handle.
+        internal_server_error: A problem has occurred on our server which has prevented us from providing the page you requested.
+        not_implemented: You made a request we are not able to process.
+        bad_gateway: A portion of our network has prevented us from processing your request.
+        service_unavailable: Our website is currently down.
+        gateway_timeout: A portion of our network took too long to process your request.
+        http_version_not_supported: Your web browser is more advanced than our server is capable of handling.
+        insufficient_storage: We are not able to complete your request due to a lack of storage.
+        bandwidth_limit_exceeded: We were not able to complete your request due to a lack of bandwidth.
+        not_extended: Our service doesn't have the necessary extensions to process your request.
+
