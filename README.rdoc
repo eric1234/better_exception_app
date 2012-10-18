@@ -21,9 +21,9 @@ a more seemless experience for your end user.
 
 = Installation
 
-# Add "gem 'better_exception_app'" to your Gemfile
-# Run "bundle install"
-# Delete public/404.html, public/422.html and public/500.html
+1. Add "gem 'better_exception_app'" to your Gemfile
+2. Run "bundle install"
+3. Delete public/404.html, public/422.html and public/500.html
 
 = What if my layout generates an error?
 
