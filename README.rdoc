@@ -1,11 +1,11 @@
 Tired of seeing this screen.
 
-https://dl.dropbox.com/u/22136966/500-error.png
+http://dl.dropbox.com/u/22136966/500-error.png
 
 = The Problem
 
 It is just a static file. So if you have the time you can craft a
-(cute error message)[http://application.blinksale.com/404.html]. But
+{cute error message}[http://application.blinksale.com/404.html]. But
 you are pumping through applications and you don't have time to provide
 a custom error for each app. So you leave the default. It is jarring as
 it doesn't fit with the the site you have created. Wouldn't it be great
@@ -93,7 +93,7 @@ Rails 3.2 finally brought an end to this madness by allowing an
 application to define a Rack application which will handle errors. This
 application can examine both the HTTP status and the actual exception
 to determine the best UI to present. It even included
-[a default app](https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/public_exceptions.rb)
+{a default app}[https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/public_exceptions.rb]
 that reproduced the historical behavior of Rails.
 
 This default app is pretty simple. It only looks at the HTTP status
@@ -102,12 +102,12 @@ through a fairly simple workflow:
 
 * Gems (including core ones like ActiveRecord) register exception
   classes, such as
-  [ActiveRecord::RecordNotFound](https://github.com/rails/rails/blob/master/activerecord/lib/active_record/railtie.rb#L25)
+  {ActiveRecord::RecordNotFound}[https://github.com/rails/rails/blob/master/activerecord/lib/active_record/railtie.rb#L25]
   with
-  [config.action_dispatch.rescue_responses](https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/exception_wrapper.rb)
+  {config.action_dispatch.rescue_responses}[https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/exception_wrapper.rb]
   to map an exception to a HTTP symbol.
 * The HTTP symbols are
-  [defined by rack](https://github.com/rack/rack/blob/master/lib/rack/utils.rb#L473)
+  {defined by rack}[https://github.com/rack/rack/blob/master/lib/rack/utils.rb#L473]
   to produce the final number.
 
 The default app just looks at the resulting number and reads the file
