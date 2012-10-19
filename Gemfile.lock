@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    better_exception_app (0.0.1)
+    better_exception_app (0.0.2)
       rails (>= 3.2)
 
 GEM
