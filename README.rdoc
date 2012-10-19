@@ -80,6 +80,20 @@ nice features:
 * If you don't like a pre-packaged error message you can easily override
   in your own locale files.
 
+= Isolating your Layout
+
+This gem is implemented as a isolated engine. This means that even
+though it uses your layout it doesn't know anything about your
+application's routes. This means in order for your layout to work you
+may need to add a few conditionals to your layout. For example if you
+have a logout action in your layout you may need to change:
+
+    <%= link_to 'Log-out', logout_path %>
+
+to
+
+    <%= link_to 'Log-out', logout_path if respond_to? :logout_path %>
+
 = A Bit of Background
 
 In old versions of Rails there was a mismatch of things to help you
