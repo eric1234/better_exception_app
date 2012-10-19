@@ -75,7 +75,7 @@ extended that support by integrating with the i18n API. This means
 all error messages are stored in locale.yml files. The provides two
 nice features:
 
-* We can add new languagues with time. Then apps using them gem will
+* We can add new languages with time. Then apps using this gem will
   be able to provide locale-specific error responses with no work.
 * If you don't like a pre-packaged error message you can easily override
   in your own locale files.
