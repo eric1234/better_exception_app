@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'test_engine'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'debugger'
-  s.files = Dir['**/*.rb']
+  s.files = Dir['**/*.rb'] + Dir['**/*.yml']
   s.extra_rdoc_files << 'README.rdoc'
   s.rdoc_options << '--main' << 'README.rdoc'
   s.summary = 'Render HTTP errors in your layout.'
