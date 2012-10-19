@@ -33,7 +33,7 @@ class BetterExceptionApp::HttpError
   # A template in the configured error_files_paths that will satisify
   # the current symbol.
   def template
-    @template ||= possible_templates.find {|t| File.exists? "#{t}.html"}
+    possible_templates.find {|t| File.exists? "#{t}.html"}
   end
 
   # The end-user understandable description configured by the locale
@@ -41,10 +41,9 @@ class BetterExceptionApp::HttpError
   # to their specific use case if needed. If description is not defined
   # in locale file then nil is returned.
   def description
-    return @description if defined? @description
-    @description = I18n.t "http.status.description.#{symbol}"
-    @description = nil if @description =~ /translation missing/
-    @description
+    description = I18n.t "http.status.description.#{symbol}"
+    description = nil if description =~ /translation missing/
+    description
   end
 
   private
