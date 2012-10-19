@@ -10,4 +10,4 @@ class BetterExceptionApp::Engine < Rails::Engine
     Rails.application.config.exceptions_app = BetterExceptionApp::Engine
   end
 
-end if defined? Rails
+end
