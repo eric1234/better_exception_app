@@ -18,7 +18,7 @@ class BetterExceptionApp::HttpErrorsController < ApplicationController
       if error.template
         # First try static template. Mainly for 500 Internal Server Error
         # since we cannot be sure they can render in a layout.
-        render error.template
+        render error.template, :layout => false
       elsif error.description
         # If static error doesn't exist try a i18n-based description
         # within the layout.
