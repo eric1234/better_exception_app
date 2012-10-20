@@ -1,4 +1,12 @@
 class BetterExceptionApp::HttpErrorsController < ApplicationController
+  # In case we get problems rendering the error message in the layout
+  # (i.e error in layout) send message and backtrace to log and print
+  # simple message to user without any layout.
+  rescue_from StandardError do
+    logger.warn $!.message
+    logger.warn $!.backtrace.join("\n")
+    render :layout => false, :text => "A problem has occurred."
+  end
 
   def show
     # Pull from path info instead of params since we will get
