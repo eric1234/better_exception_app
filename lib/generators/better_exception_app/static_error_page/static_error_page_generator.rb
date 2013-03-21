@@ -5,6 +5,7 @@ class BetterExceptionApp::StaticErrorPageGenerator < Rails::Generators::NamedBas
   def generate_page
     # To avoid reading the existing static files.
     BetterExceptionApp::HttpError.error_files_paths.replace []
+    Rails.configuration.middleware.delete Rack::File
 
     status = if file_name =~ /^\d{3}$/
       file_name
@@ -14,7 +15,7 @@ class BetterExceptionApp::StaticErrorPageGenerator < Rails::Generators::NamedBas
 
     request = Rack::MockRequest.env_for "/#{status}"
     request['action_dispatch.exception'] = StandardError.new 'generator'
-    status, headers, response = *BetterExceptionApp::Engine.call(request)
+    status, headers, response = *Rails.application.routes.call(request)
     create_file "public/errors/#{file_name}.html", response.body
   end
 

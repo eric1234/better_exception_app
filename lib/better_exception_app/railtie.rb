@@ -1,5 +1,4 @@
 class BetterExceptionApp::Engine < Rails::Engine
-  isolate_namespace BetterExceptionApp
 
   initializer 'better_exception.set_paths' do
     BetterExceptionApp::HttpError.error_files_paths <<

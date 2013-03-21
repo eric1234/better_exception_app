@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'better_exception_app'
-  s.version = '0.0.4'
+  s.version = '0.1.0'
   s.homepage = 'https://github.com/eric1234/better_exception_app'
   s.author = 'Eric Anderson'
   s.email = 'eric@pixelwareinc.com'
