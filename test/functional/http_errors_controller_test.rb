@@ -15,7 +15,6 @@ class HttpErrorsControllerTest < ActionController::TestCase
     request.env["PATH_INFO"] = '/404'
     get :show, :status => '404', :use_route => 'better_exception_app'
     assert_response :ok
-    assert_select 'body' # We have a layout
     assert_match /404 by number/, response.body.strip # Error message right
   end
 

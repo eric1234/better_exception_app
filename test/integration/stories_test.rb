@@ -32,5 +32,5 @@ class ExampleController < ActionController::Base
   end
 end
 Rails.application.routes.draw do
-  match 'not_implemented' => 'example#not_implemented'
+  get 'not_implemented' => 'example#not_implemented'
 end
