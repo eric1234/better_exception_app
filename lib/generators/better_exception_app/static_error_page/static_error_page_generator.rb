@@ -15,7 +15,7 @@ class BetterExceptionApp::StaticErrorPageGenerator < Rails::Generators::NamedBas
 
     request = Rack::MockRequest.env_for "/#{status}"
     request['action_dispatch.exception'] = StandardError.new 'generator'
-    status, headers, response = *Rails.application.routes.call(request)
+    status, headers, response = *BetterExceptionApp::Engine.call(request)
     create_file "public/errors/#{file_name}.html", response.body
   end
 

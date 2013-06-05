@@ -1,6 +1,5 @@
-Rails.application.routes.draw do
+BetterExceptionApp::Engine.routes.draw do
   scope :module => :better_exception_app do
-    match ':status' => 'http_errors#show', :status => /\d{3}/,
-      :via => :get, :as => :http_error
+    get ':status' => 'http_errors#show', :status => /\d{3}/, :as => :http_error
   end
 end
