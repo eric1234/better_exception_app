@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name = 'better_exception_app'
-  s.version = '0.1.1'
+  s.version = '0.1.5'
   s.homepage = 'https://github.com/eric1234/better_exception_app'
   s.author = 'Eric Anderson'
   s.email = 'eric@pixelwareinc.com'
-  s.add_dependency 'rails', '>= 3.2'
+  s.add_dependency 'rails', '>= 5.0'
   s.add_development_dependency 'test_engine'
   s.add_development_dependency 'capybara'
   s.files = Dir['**/*.rb'] + Dir['**/*.yml']

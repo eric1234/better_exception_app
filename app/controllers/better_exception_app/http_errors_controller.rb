@@ -5,7 +5,7 @@ class BetterExceptionApp::HttpErrorsController < ApplicationController
   rescue_from StandardError do
     logger.warn $!.message
     logger.warn $!.backtrace.join("\n")
-    render :layout => false, :text => "A problem has occurred."
+    render plain: 'A problem has occurred.'
   end
 
   def show
@@ -26,15 +26,15 @@ class BetterExceptionApp::HttpErrorsController < ApplicationController
       if error.template
         # First try static template. Mainly for 500 Internal Server Error
         # since we cannot be sure they can render in a layout.
-        render error.template, :layout => false
+        render error.template, layout: false
       elsif error.description
         # If static error doesn't exist try a i18n-based description
         # within the layout.
-        render :text => error.description, :layout => true
+        render html: error.description, layout: true
       else
         # If not a static file or boilerplate description doesn't exist
         # then just get the exception to do the talking.
-        render :text => error.exception.message, :layout => true
+        render html: error.exception.message, layout: true
       end
     end
   end
